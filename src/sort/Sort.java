@@ -60,6 +60,58 @@ public class Sort {
 		
 	}
 	
+	// 병합정렬
+	public int [] mergeSort(int [] arr, int p, int r) {
+		
+		if(p < r) {
+			int q = (p+r)/2; //배열을 쪼갠다.
+			//각각의 파트를 더 쪼갠다. - 재귀호출.
+			this.mergeSort(arr, p,q);
+			this.mergeSort(arr, q+1, r);
+			//정렬(병합하며 정렬)
+			this.merge(arr, p, q, r);
+		}
+		
+		return arr;
+	}
+	
+	//p~q, q+1~r까지의 배열을 합치면서 정렬한다.(각각은 이미 정렬되어진 상태)
+	public int [] merge(int [] arr, int p, int q, int r) {
+		
+	   int [] temp = new int[r-p+1]; //필요한 크기만 할당.
+	   
+	   int i = p;
+	   int j = q+1;
+	   int k = 0;
+	   
+	   //우선순위에 따라 temp에 복사. 
+	   while(i <= q && j <= r) {
+		   if(arr[i] <= arr[j]) {
+			   temp[k++] = arr[i++];
+		   }else {
+			   temp[k++] = arr[j++];
+		   }
+	   }
+	   //반복문이 종료된 후 남은 데이터 이동. => 이미 정렬되어 있기에 그냥 넣으면 됨.
+	   while(i <= q) { //왼쪽 배열 데이터가 남은 경우.
+		   temp[k++] = arr[i++];
+	   }
+	   
+	   while(j <= r) { //오른쪽 배열 데이터가 남은 경우.
+		   temp[k++] = arr[j++];
+	   }
+	   
+	   
+	   //원 배열로 이동
+	   k = 0;
+	   while(p <= r) {
+		   arr[p++] = temp[k++];
+	   }
+	   
+	   return arr;
+		
+	}
+	
 
 
 }
