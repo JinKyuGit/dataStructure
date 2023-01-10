@@ -3,7 +3,7 @@ package sort;
 public class Sort {
 	
 	//선택정렬
-	public int[] selectionSort(int [] arr) {
+	public void selectionSort(int [] arr) {
 		
 		for(int i = arr.length-1; i > 0; i--) {
 			int temp = arr[i];
@@ -12,7 +12,6 @@ public class Sort {
 			arr[largestIndex] = temp;
 		}
 		
-		return arr;
 	}
 
 	//arr 0 ~ k까지 가장 큰 수의 인덱스 리턴.
@@ -28,7 +27,7 @@ public class Sort {
 	
 	
 	//버블정렬
-	public int [] bubbleSort(int [] arr) {
+	public void bubbleSort(int [] arr) {
 		
 		for(int i = 0; i < arr.length-1; i++) {
 			//0부터 시작하여 바로 오른쪽 값과 대소를 비교하여 한칸씩 이동. 이를 n-1번 반복.
@@ -40,11 +39,10 @@ public class Sort {
 				}
 			}
 		}
-		return arr;
 	}
 	
 	//삽입정렬
-	public int [] insertionSort(int [] arr) {
+	public void insertionSort(int [] arr) {
 		
 		for(int i = 0; i < arr.length; i++) {
 			int k = arr[i];
@@ -56,12 +54,11 @@ public class Sort {
 			}
 			arr[index+1] = k;
 		}
-		return arr;
 		
 	}
 	
 	// 병합정렬
-	public int [] mergeSort(int [] arr, int p, int r) {
+	public void mergeSort(int [] arr, int p, int r) {
 		
 		if(p < r) {
 			int q = (p+r)/2; //배열을 쪼갠다.
@@ -71,12 +68,10 @@ public class Sort {
 			//정렬(병합하며 정렬)
 			this.merge(arr, p, q, r);
 		}
-		
-		return arr;
 	}
 	
 	//p~q, q+1~r까지의 배열을 합치면서 정렬한다.(각각은 이미 정렬되어진 상태)
-	public int [] merge(int [] arr, int p, int q, int r) {
+	public void merge(int [] arr, int p, int q, int r) {
 		
 	   int [] temp = new int[r-p+1]; //필요한 크기만 할당.
 	   
@@ -108,7 +103,6 @@ public class Sort {
 		   arr[p++] = temp[k++];
 	   }
 	   
-	   return arr;
 		
 	}
 	

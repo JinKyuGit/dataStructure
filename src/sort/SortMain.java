@@ -22,10 +22,10 @@ public class SortMain {
 		
 		long before = System.currentTimeMillis();
 		
-		//arr = sort.selectionSort(arr);
-		//arr = sort.bubbleSort(arr);
-		//arr = sort.insertionSort(arr);
-		arr = sort.mergeSort(arr, 0, arr.length-1);
+		// sort.selectionSort(arr);
+		// sort.bubbleSort(arr);
+		// sort.insertionSort(arr);
+		sort.mergeSort(arr, 0, arr.length-1);
 		
 		long after = System.currentTimeMillis();
 		
