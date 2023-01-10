@@ -106,6 +106,58 @@ public class Sort {
 		
 	}
 	
+	
+	//퀵 정렬
+	public void quickSort(int [] arr, int left, int right) {
+		
+	    if(left >= right) {
+	    	return;
+	    }
+		
+	    int pivot = this.partition(arr, left, right);
+	    
+	    this.quickSort(arr, left, pivot);
+	    this.quickSort(arr, pivot+1, right);
+		
+		
+		
+	}
+	
+	// 정렬.
+	public int partition(int [] arr, int left, int right) {
+		
+		int pivot = arr[left]; //피봇 결정.
+		
+	    int low = left+1; //피봇 다음부터 비교할 것이기 때문.
+	    int high = right;
+	    
+	    while(low < high) {
+	    	//(가운데를 기준으로) 왼쪽에 있는 데이터 중 pivot보다 우선순위가 큰 데이터와
+	    	//오른쪽에 있는 데이터 중 pivot보다 우선순위가 작은 데이터를 각각 찾아 위치를 변경시킴.
+	    	while(low < high && pivot > arr[low]) {
+	    		low++;
+	    	}
+	    	while(low < high && pivot < arr[high]) {
+	    		high--;
+	    	}
+	    	
+	    	this.swap(arr, low, high);
+	    }
+	    
+	    //반복이 끝났다면 low == high이고 이 위치를 기준으로 왼쪽에는 pivot보다 우선순위가 작은 값이
+	    //오른쪽에는 우선순위가 높은 값이 위치함. 따라서 이 자리에 pivot을 위치시킴.
+	  
+	   this.swap(arr, low, right);
+	   
+	   return low;
+		
+	}
+	
+	public void swap(int [] arr, int x, int y) {
+		int temp = arr[x];
+		arr[x] = arr[y];
+		arr[y] = temp;
+	}
 
 
 }
