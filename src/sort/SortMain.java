@@ -25,7 +25,8 @@ public class SortMain {
 		// sort.selectionSort(arr);
 		// sort.bubbleSort(arr);
 		// sort.insertionSort(arr);
-		sort.mergeSort(arr, 0, arr.length-1);
+		//sort.mergeSort(arr, 0, arr.length-1);
+	     sort.quickSort(arr, 0, arr.length-1);
 		
 		long after = System.currentTimeMillis();
 		

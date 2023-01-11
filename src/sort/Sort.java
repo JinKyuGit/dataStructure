@@ -116,7 +116,7 @@ public class Sort {
 		
 	    int pivot = this.partition(arr, left, right);
 	    
-	    this.quickSort(arr, left, pivot);
+	    this.quickSort(arr, left, pivot-1);
 	    this.quickSort(arr, pivot+1, right);
 		
 		
@@ -124,39 +124,42 @@ public class Sort {
 	}
 	
 	// 정렬.
+	//i와 j 변수를 왼쪽에 두고 한칸씩 이동시키면서 pivot과 비교.
+	//pivot보다 작은 숫자면 i와 위치 교환.
+	//이러한 반복을 통해 오른쪽에는 pivot기준 더 큰 숫자, 왼쪽에는 pivot 기준 작은 숫자가 온다.
+	//반복 후에 left ~ i 까지는 pivot보다 작은 숫자, i+1부터는 pivot보다 큰 숫자가 온다.
 	public int partition(int [] arr, int left, int right) {
 		
-		int pivot = arr[left]; //피봇 결정.
+		int pivot = arr[right];
 		
-	    int low = left+1; //피봇 다음부터 비교할 것이기 때문.
-	    int high = right;
-	    
-	    while(low < high) {
-	    	//(가운데를 기준으로) 왼쪽에 있는 데이터 중 pivot보다 우선순위가 큰 데이터와
-	    	//오른쪽에 있는 데이터 중 pivot보다 우선순위가 작은 데이터를 각각 찾아 위치를 변경시킴.
-	    	while(low < high && pivot > arr[low]) {
-	    		low++;
-	    	}
-	    	while(low < high && pivot < arr[high]) {
-	    		high--;
-	    	}
-	    	
-	    	this.swap(arr, low, high);
-	    }
-	    
-	    //반복이 끝났다면 low == high이고 이 위치를 기준으로 왼쪽에는 pivot보다 우선순위가 작은 값이
-	    //오른쪽에는 우선순위가 높은 값이 위치함. 따라서 이 자리에 pivot을 위치시킴.
-	  
-	   this.swap(arr, low, right);
-	   
-	   return low;
+		int i = left-1;
+		
+		for(int j=left; j < right; j++) { //right는 pivot의 위치이므로 그 전까지만 비교.
+			if(arr[j] < pivot) {
+				i++;
+				this.swap(arr, i, j);
+			}
+		}
+		//반복이 끝난 후 i의 오른쪽 자리가 pivot이 위치할 자리
+	    i++;
+	    this.swap(arr, right, i);
+		return i; //i자리에 pivot이 옴.
 		
 	}
 	
 	public void swap(int [] arr, int x, int y) {
+		
 		int temp = arr[x];
 		arr[x] = arr[y];
 		arr[y] = temp;
+		
+		/*
+		System.out.println(x+" 와 "+y+" 교환 ");
+	    for(int i = 0; i < arr.length; i++) {
+	    	System.out.print(arr[i]+", ");
+	    }
+	    System.out.println();
+		*/
 	}
 
 
