@@ -196,27 +196,36 @@ public class BinaryTree {
 				replaceNode = replaceNodeParent.left;
 				
 			}
-			//만약 replaceNode에 자식이 있는 경우(논리상 왼쪽 자식은 없다) -> replaceNodeParent의 왼쪽에 달아줌.
-			if(null != replaceNode.right) {
-				replaceNodeParent.left = replaceNode.right;
-			}else {
-				//자식이 없는 경우기에 대체노드 부모의 대체노드 레퍼런스를 삭제.
-				replaceNodeParent.left = null;
+			
+			//삭제할 노드와, 대체노드의 부모가 다른 경우에만 적용할 사항. => 같은경우에는 적용할 필요가 없음.
+			if(child != replaceNodeParent) {
+				//만약 replaceNode에 자식이 있는 경우(논리상 왼쪽 자식은 없다) -> replaceNodeParent의 왼쪽에 달아줌.
+				if(null != replaceNode.right) {
+					replaceNodeParent.left = replaceNode.right;
+				}else {
+					//자식이 없는 경우기에 대체노드 부모의 대체노드 레퍼런스를 삭제. -> 대체노드는 항상 대체노드 부모의 왼쪽.
+					replaceNodeParent.left = null;
+				}
 			}
 			
-			//삭제할 노드와 대체할 노드를 교환한다.
+			
+			//삭제할 노드와 대체할 노드를 교환한다. - 값만 바꿔도 됨.
 			if("L".equals(direct)) {
 				parent.left = replaceNode;
 			}else {
 				parent.right = replaceNode;
 			}
 			
-			replaceNode.left = child.left;
-			replaceNode.right = child.right;
+			replaceNode.left = child.left; //논리상 자가참조 X
+			
+			//논리상 자가참조를 할 가능성이 있음.
+			if(replaceNode != child.right) { // replaceNodeParent == child 인 경우.
+				replaceNode.right = child.right;
+			}
 			
 			//이제 child는 참조가 없으므로 메모리에서 해제된다.
 			
-			//루트인 경우
+			//만약 루트인 경우
 			if(this.root == child) {
 				this.root = replaceNode;
 			}
