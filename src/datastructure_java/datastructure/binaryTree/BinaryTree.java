@@ -187,7 +187,7 @@ public class BinaryTree {
 			//대체할 노드를 찾아야 함. 왼쪽 자식 중 가장 큰 노드 혹은 오른쪽 자식 중 가장 작은 노드.
 		    
 			Node replaceNodeParent = child;
-			Node replaceNode = replaceNodeParent.left;
+			Node replaceNode = replaceNodeParent.right;
 			
 			//탐색.
 			while(null != replaceNode.left) {
@@ -223,7 +223,73 @@ public class BinaryTree {
 		}
 	}
 	
+	
+	//삭제. 재귀적 버전
+	public void delete2(int target) {
+		this.deleteItem(this.root, target);	
+	}
+	
+	//삭제할 노드를 탐색하는 함수.
+	public Node deleteItem(Node node, int target) {
+		if(null == node) {
+			return null;
+		}else {
+			if(target == node.item) {
+				node = this.deleteNode(node); //삭제할 값이 있다면 언젠가 여기가 실행된다.
+			}else if(target < node.item) {
+				node = this.deleteItem(node.left, target);
+			}else {
+				node = this.deleteItem(node.right, target);
+			} 
+			return node;
+		}
+	}
+	
+	//삭제할 노드의 대체 노드를 리턴하는 함수.
+	public Node deleteNode(Node node) {
+		
+		/*
+		 * 삭제할 노드의 자식 유무에 따른 분기 처리.
+		 */
+		
+		if(null == node.left && null == node.right) {
+			return null;
+		}else if(null == node.left) {
+			return node.right;
+		}else if(null == node.right) {
+			return node.left;
+		}else {
+			//노드를 실제 삭제하지는 않고, 노드의 값만 대체.
+			ReturnPair rp = this.deleteMinItem(node.right); //대체값 탐색 오른쪽 한칸 이동, 그리고 왼쪽으로 계속 이동.
+		    node.item = rp.key;
+		   // node.right = rp.node; //의미가 없어보임.
+			return node;
+		}
+		
+	}
 
+	
+	//특정 트리노드의 오른쪽 가장 작은 값과 노드 리턴.(대체노드 탐색 과정)
+	public ReturnPair deleteMinItem(Node node) {
+		if(null == node.left) { 
+			return new ReturnPair(node.item, node.right); //대체 노드가 만약 오른쪽 서브트리를 가지고 있는 경우.
+		}else {
+			ReturnPair rp = this.deleteMinItem(node.left);
+			node.left = rp.node; //=> 대체노드의 부모의 left(대체노드의 자리)에는 대체노드의 자식이 온다.
+			rp.node = node; //node => 대체 노드의 부모노드.
+			return rp;
+		}
+	}
+	
+	
+	public class ReturnPair {
+		public int key;
+		public Node node;
+		public ReturnPair(int key, Node node) {
+			this.key = key;
+			this.node = node;
+		}
+	}
 
 
 }

@@ -14,6 +14,8 @@ public class BinaryTreeMain {
 		tree.insert2(15);
 		tree.insert2(7);
 		tree.insert2(20);
+		tree.insert2(13);
+		tree.insert2(14);
 		
 		tree.preOrder(tree.root);
 		System.out.println();
@@ -21,7 +23,7 @@ public class BinaryTreeMain {
 	    //Node node = tree.search(tree.root, 7);
 	    //System.out.println(node.item);
 	    
-		tree.delete(10);
+		tree.delete2(10);
 		tree.preOrder(tree.root);
 
 	}
