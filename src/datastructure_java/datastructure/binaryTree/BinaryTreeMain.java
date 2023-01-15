@@ -23,7 +23,7 @@ public class BinaryTreeMain {
 	    //Node node = tree.search(tree.root, 7);
 	    //System.out.println(node.item);
 	    
-		tree.delete2(10);
+		tree.delete2(15);
 		tree.preOrder(tree.root);
 
 	}

@@ -260,9 +260,9 @@ public class BinaryTree {
 			return node.left;
 		}else {
 			//노드를 실제 삭제하지는 않고, 노드의 값만 대체.
-			ReturnPair rp = this.deleteMinItem(node.right); //대체값 탐색 오른쪽 한칸 이동, 그리고 왼쪽으로 계속 이동.
+			ReplaceNodeInfo rp = this.deleteMinItem(node.right); //대체값 탐색 오른쪽 한칸 이동, 그리고 왼쪽으로 계속 이동.
 		    node.item = rp.key;
-		   // node.right = rp.node; //의미가 없어보임.
+		    node.right = rp.sub; //원래 오른쪽 자식이 있으면 의미가 없지만, 오른쪽 자식이 대체노드가 되면 null값이 들어감.
 			return node;
 		}
 		
@@ -270,24 +270,24 @@ public class BinaryTree {
 
 	
 	//특정 트리노드의 오른쪽 가장 작은 값과 노드 리턴.(대체노드 탐색 과정)
-	public ReturnPair deleteMinItem(Node node) {
+	public ReplaceNodeInfo deleteMinItem(Node node) {
 		if(null == node.left) { 
-			return new ReturnPair(node.item, node.right); //대체 노드가 만약 오른쪽 서브트리를 가지고 있는 경우.
+			return new ReplaceNodeInfo(node.item, node.right); //대체 노드가 만약 오른쪽 서브트리를 가지고 있는 경우.
 		}else {
-			ReturnPair rp = this.deleteMinItem(node.left);
-			node.left = rp.node; //=> 대체노드의 부모의 left(대체노드의 자리)에는 대체노드의 자식이 온다.
-			rp.node = node; //node => 대체 노드의 부모노드.
+			ReplaceNodeInfo rp = this.deleteMinItem(node.left);
+			node.left = rp.sub; //=> 대체노드의 부모의 left(원래 대체노드의 자리)에는 대체노드의 자식이 온다.
+			rp.sub = node; //node => 대체 노드의 부모노드.
 			return rp;
 		}
 	}
 	
-	
-	public class ReturnPair {
+	//대체 노드의 정보 객체.
+	public class ReplaceNodeInfo {
 		public int key;
-		public Node node;
-		public ReturnPair(int key, Node node) {
+		public Node sub;
+		public ReplaceNodeInfo(int key, Node sub) {
 			this.key = key;
-			this.node = node;
+			this.sub = sub;
 		}
 	}
 
