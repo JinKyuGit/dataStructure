@@ -246,9 +246,9 @@ public class BinaryTree {
 			if(target == node.item) {
 				node = this.deleteNode(node); //삭제할 값이 있다면 언젠가 여기가 실행된다.
 			}else if(target < node.item) {
-				node = this.deleteItem(node.left, target);
+				node.left = this.deleteItem(node.left, target);
 			}else {
-				node = this.deleteItem(node.right, target);
+				node.right = this.deleteItem(node.right, target);
 			} 
 			return node;
 		}
@@ -270,8 +270,8 @@ public class BinaryTree {
 		}else {
 			//노드를 실제 삭제하지는 않고, 노드의 값만 대체.
 			ReplaceNodeInfo rp = this.deleteMinItem(node.right); //대체값 탐색 오른쪽 한칸 이동, 그리고 왼쪽으로 계속 이동.
-		    node.item = rp.key;
-		    node.right = rp.sub; //원래 오른쪽 자식이 있으면 의미가 없지만, 오른쪽 자식이 대체노드가 되면 null값이 들어감.
+		    node.item = rp.item;
+		    node.right = rp.node; //원래 오른쪽 자식이 있으면 의미가 없지만, 오른쪽 자식이 대체노드가 되면 null값이 들어감.
 			return node;
 		}
 		
@@ -284,19 +284,19 @@ public class BinaryTree {
 			return new ReplaceNodeInfo(node.item, node.right); //대체 노드가 만약 오른쪽 서브트리를 가지고 있는 경우.
 		}else {
 			ReplaceNodeInfo rp = this.deleteMinItem(node.left);
-			node.left = rp.sub; //=> 대체노드의 부모의 left(원래 대체노드의 자리)에는 대체노드의 자식이 온다.
-			rp.sub = node; //node => 대체 노드의 부모노드.
+			node.left = rp.node; //=> 대체노드의 부모의 left(원래 대체노드의 자리)에는 대체노드의 자식이 온다.
+			rp.node = node; //node => 대체 노드의 부모노드.
 			return rp;
 		}
 	}
 	
 	//대체 노드의 정보 객체.
 	public class ReplaceNodeInfo {
-		public int key;
-		public Node sub;
-		public ReplaceNodeInfo(int key, Node sub) {
-			this.key = key;
-			this.sub = sub;
+		public int item;
+		public Node node;
+		public ReplaceNodeInfo(int item, Node node) {
+			this.item = item;
+			this.node = node;
 		}
 	}
 
