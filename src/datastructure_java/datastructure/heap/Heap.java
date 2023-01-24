@@ -41,6 +41,7 @@ public class Heap {
     	
     	int parent = index / 2;
     	
+    	//최소 힙이라면 this.array[index] < this.array[parent]
     	if(index > 0 && this.array[index] > this.array[parent]) {
     		
     		//swap.
@@ -81,11 +82,13 @@ public class Heap {
     	if(child <= this.numItems - 1) {
     		
     		//child에 우선순위가 높은 index가 오도록 하는 작업.
+    		//최소 힙이라면 child에는 더 작은 값의 인덱스가 와야함.
     		if(rightChild <= this.numItems -1 && this.array[child] < this.array[rightChild]) {
     			child = rightChild;
     		}
     		
     		//swap이 필요한 경우.
+    		//최소 힙이라면 조건 반대로.
     		if(this.array[index] < this.array[child]) {
     			int temp = this.array[index];
     			this.array[index] = this.array[child];
