@@ -286,6 +286,7 @@ public class BinaryTree {
 			ReplaceNodeInfo rp = this.deleteMinItem(node.left);
 			node.left = rp.node; //=> 대체노드의 부모의 left(원래 대체노드의 자리)에는 대체노드의 자식이 온다.
 			rp.node = node; //node => 대체 노드의 부모노드.
+			
 			return rp;
 		}
 	}
@@ -299,6 +300,87 @@ public class BinaryTree {
 			this.node = node;
 		}
 	}
+	
+	
+	//************** 복습 ****************
+	/*
+	    ex)
+	           10
+	       5       15
+             7	13    20
+                 14  19    
+	                17
+	    ex) 15 삭제.
+	   1) 15탐색.
+	   2) 15의 오른쪽 한칸, 이후 왼쪽으로 이동하며 삭제할 노드 탐색. (재귀)
+	   3) 17 발견. 17은 더이상 왼쪽 자식이 없으므로 오른쪽 자식과 함께 리턴.여기서는 null)
+	   4) 19의 왼쪽에 17의 오른쪽 자식 붙임(여기서는 null), 이후 본인(19) 리턴.
+	   5) 20의 왼쪽에 19붙임.(그대로임) 이후 본인(20) 리턴.
+	   6) 15의 값 대체 -> 17, 이후 오른쪽에 20 붙임.(그대로임. 만약 대체노드가 20인 경우 null이 리턴될 것임.)
+	                
+	 */
+	
+	
+	
+	 /*
+	 * 
+	 * 대체할 노드를 찾아서 리턴하며, 대체할 노드의 자식노드를 리턴하여 대체노드의 부모와 연결하고
+	 * 부모노드를 리턴하는 작업을 재귀적으로 수행. -> 이를 통해 노드 재구성.
+	 * 
+	 */
+	public ReplaceNodeInfo getSmallest(Node node) {
+		
+		if(null == node.left) {
+			return new ReplaceNodeInfo(node.item, node.right);
+		}else {
+			ReplaceNodeInfo rp = this.getSmallest(node.left);
+			node.left = rp.node;
+			rp.node = node;
+			return rp;
+		}	
+	}
+	//자식 노드의 유무에 따른 분기처리.
+	public Node deleteNode2(Node node) {
+		
+		if(null == node.left && null == node.right) {
+			return null;
+		}else if(null == node.left) {
+			return node.right;
+		}else if(null == node.right) {
+			return node.left;
+		}else {
+			ReplaceNodeInfo rp = this.getSmallest(node.right);
+			node.item = rp.item;
+			node.right = rp.node;
+			return node;
+		}
+	}
+	
+	//재귀호출을 통한 삭제가 되도록 함.
+	public void deleteItem2(Node node, int target) {
+		
+		if(null == node) {
+			return;
+		}
+		if(target == node.item) {
+			return;
+		}else if(target < node.item) {
+		     node.left = this.deleteNode2(node.left); 
+		}else {
+			node.right = this.deleteNode2(node.right);
+		}
+		
+		
+	}
+	
+	//최초 호출함수.
+	public void delete3(int target) {
+		this.deleteItem2(this.root, target);
+	}
+	
+	
+	
+	
 
 
 }
