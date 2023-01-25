@@ -144,21 +144,22 @@ public class LinkedList {
 	//특정 데이터가 맨 먼저 있는 노드 탐색하여 인덱스 리턴.
 	public int indexOf(int target) {
 		
-		int result = -1;
+		int result = 0;
 		
 		Node cursor = this.head.next;
 		
-		while(null != cursor) {
+		for(int i = 0; i < this.numItems; i++) {
 			
-			if(target == cursor.item) {
+			if(null == cursor) {
 				break;
 			}
 			
+			if(cursor.item == target) {
+				result = i;
+				break;
+			}
 			cursor = cursor.next;
-			
 		}
-		
-		result = cursor.item;
 		
 		
 		return result;
