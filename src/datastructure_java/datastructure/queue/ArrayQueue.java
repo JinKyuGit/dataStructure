@@ -31,13 +31,11 @@ public class ArrayQueue {
 		
 		//맨 마지막 다음에 데이터 삽입.
 		//경계를 넘어가는 경우 체크.
-		if(this.tail == this.queue.length-1) {
+		if(this.tail == this.queue.length) {
 			this.tail = 0;
-		}else {
-			this.tail++;
 		}
 		
-		this.queue[this.tail] = data;
+		this.queue[this.tail++] = data;
 		this.numItems++;
 		
 	}
