@@ -65,9 +65,10 @@ public class Kruskal {
 	public int find(int x) {
 		if(this.parent[x] == x) {
 			return x;
-		}else {
-			return this.find(this.parent[x]);
 		}
+		//최상위 부모를 찾아야 하기에 재귀호출한다.
+		return this.find(this.parent[x]);
+		
 	}
 	
 	public boolean union(int x, int y) {
@@ -82,13 +83,11 @@ public class Kruskal {
 		if(parentX != parentY) {
 			
 			if(x < y) {
-				//부모 동기화.
+				//부모 업데이트.
 				this.updateParent(y, parentX);
-				this.parent[y] = parentX;
 			}else {
-				//부모 동기화.
+				//부모 업데이트.
 				this.updateParent(x, parentY);
-				this.parent[x] = parentY;
 				
 			}
 			
@@ -98,7 +97,7 @@ public class Kruskal {
 		return result;
 	}
 	
-	//부모 정보 보정... 하나의 부모를 가진 노드가 새 부모와 연결될때, 기존 부모와의 우선순위 비교를 통해 부모를 동기화 해주어야 한다.
+	//부모 정보 보정... 기존에 부모를 가진 노드가 새 부모와 연결될때, 기존 부모와의 우선순위 비교를 통해 부모를 동기화 해주어야 한다.
 	public void updateParent(int x, int newParent) {
 		
 		int beforeParent = this.find(x);
@@ -106,6 +105,9 @@ public class Kruskal {
 		if(beforeParent > newParent) {
 			this.parent[beforeParent] = newParent;
 		}
+		
+		this.parent[x] = newParent;
+		
 	}
 	
 	
