@@ -10,7 +10,7 @@ public class Graph {
 
 	
 	//연결리스트를 통한 그래프 구현... 무방향그래프로 한다.
-	private LinkedList [] graph; // List<LinkedList> 로 해도 됨.
+	public LinkedList [] graph; // List<LinkedList> 로 해도 됨.
 	
 	//그래프 초기화.
 	public Graph(int size) {
