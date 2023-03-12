@@ -20,7 +20,8 @@ public class Euclidean {
 		//최대공약수는 두 수의 곱 / 최대공약수이다.
 		System.out.println("최소공배수 : "+copy[0]*copy[1]/e.getDivisor(result[0], result[1]));
 		
-		//System.out.println("최대공약수 : "+e.gdc(num[0], num[1]));
+		System.out.println("최대공약수 비재귀적 : "+e.gdc(num[0], num[1]));
+		System.out.println("최대공약수 재귀2 : "+e.gdc2(num[0], num[1]));
 		
 	}
 	
@@ -109,6 +110,19 @@ public class Euclidean {
 		//정지조건에 의해 두 수를 나눈 나머지가 0이 되는 경우. 큰 수가 최대공약수가 된다.
 		return a;
 
+	}
+	
+	//재귀적 방법 다듬음.
+	public int gdc2(int a, int b) {
+		
+		if(b != 0) {
+			a = b;
+			b = a % b;
+			this.gdc2(a, b);
+		}
+		
+		return a;
+		
 	}
 
 }
