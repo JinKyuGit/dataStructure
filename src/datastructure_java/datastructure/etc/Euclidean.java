@@ -7,9 +7,9 @@ public class Euclidean {
 		
 		Euclidean e = new Euclidean();
 		
-		int [] num = {12, 8};
+		int [] num = {24, 5};
 		System.out.println("입력값 : "+num[0]+", "+num[1]);
-		int [] result = e.getSmallNum(num);
+		int [] result = e.getSmallNum2(num);
 		
 		//System.out.println("result : "+result[0]+", "+result[1]);
 		System.out.println("최대공약수 : "+e.getDivisor(result[0], result[1]));
@@ -59,6 +59,30 @@ public class Euclidean {
 		return num;
 	}
 	
+	
+	//위의 과정은 내가 생각해낸 것인데 인터넷을 보니 다음과 같이 생략이 가능함.
+	//큰 수에서 작은 수를 나눈 나머지 / 작은 수의 최대공약수.
+	//호출 수가 훨씬 적으므로 이 알고리즘이 효율적이다.
+	public int [] getSmallNum2(int [] num) {
+		
+		//두 수를 뺀 값이 0보다 큰 경우 재귀호출.
+		if(num[0] % num[1] > 0) {
+			
+			if(num[0] % num[1] > num[1]) {
+				num[0] = num[0] % num[1]; 
+				//이 경우 num[1]은 그대로 둔다.
+			}else {
+				int temp = num[1];
+				num[1] = num[0] % num[1];
+				num[0] = temp;
+			}
+			//재귀호출... 이러한 반복을 통해 최대한 작은 값으로 만들 수 있다.
+			this.getSmallNum2(num);
+		}
+		
+		//정지조건을 만족하면 리턴.
+		return num;
+	}
 
 
 }
