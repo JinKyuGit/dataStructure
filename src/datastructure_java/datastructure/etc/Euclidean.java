@@ -7,12 +7,18 @@ public class Euclidean {
 		
 		Euclidean e = new Euclidean();
 		
-		int [] num = {24, 5};
+		int [] num = {12, 8};
+		int [] copy = new int[2];
+		copy[0] = num[0];
+		copy[1] = num[1];
 		System.out.println("입력값 : "+num[0]+", "+num[1]);
 		int [] result = e.getSmallNum2(num);
 		
 		//System.out.println("result : "+result[0]+", "+result[1]);
 		System.out.println("최대공약수 : "+e.getDivisor(result[0], result[1]));
+		
+		//최대공약수는 두 수의 곱 / 최대공약수이다.
+		System.out.println("최소공배수 : "+copy[0]*copy[1]/e.getDivisor(result[0], result[1]));
 		
 	}
 	
@@ -83,6 +89,8 @@ public class Euclidean {
 		//정지조건을 만족하면 리턴.
 		return num;
 	}
-
+	
+	
+	
 
 }
