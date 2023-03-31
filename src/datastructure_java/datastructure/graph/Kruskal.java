@@ -10,6 +10,12 @@ import datastructure_java.datastructure.graph.Prim.Edge;
 public class Kruskal {
 
 	//크루스칼 알고리즘 구현.
+	/*
+	 * 각 정점별로 간선의 비용을 모두 구한다음에
+	 * 비용이 가장 적은 간선부터 선택하여 최소신장트리 구현.
+	 * 
+	 * 
+	 */
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
