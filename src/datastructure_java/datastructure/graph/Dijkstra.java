@@ -80,6 +80,7 @@ public class Dijkstra {
 				if(currentDist+dist[i] < dist[j]) {
 					dist[j] = currentDist+dist[i];
 				}
+				
 			}
 		}
 		
