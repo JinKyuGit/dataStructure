@@ -1,4 +1,4 @@
-package datastructure_java.datastructure.etc;
+package algorithm;
 
 public class CoinChange {
 	
