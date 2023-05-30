@@ -1,9 +1,10 @@
-package datastructure_java.datastructure.etc;
+package datastructure_java.datastructure.graph;
 
-public class AllPairsShortest {
+public class FloydWarshall {
 	
 	/*
 	 * 모든 쌍 최단경로 찾기.
+	 * floyd-warshall 알고리즘.
 	 */
 
 	public static void main(String[] args) {
@@ -25,7 +26,7 @@ public class AllPairsShortest {
 		}
 		System.out.println("===========================");
 		
-		AllPairsShortest aps = new AllPairsShortest();
+		FloydWarshall aps = new FloydWarshall();
 		aps.getShortest(graph);
 		
 		

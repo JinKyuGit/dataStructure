@@ -86,7 +86,7 @@ public class LinkedList {
 		if(null != preNode) {
 			preNode.next = newNode;
 			this.numItems++;
-			System.out.println(data+" 데이터 삽입 완료.");
+			//System.out.println(data+" 데이터 삽입 완료.");
 		}
 		
 	}
