@@ -111,7 +111,9 @@ public class Sort2 {
 			return;
 		}
 		
-		int pivot = this.partition(arr, left, right);
+		//int pivot = this.partition(arr, left, right);
+		int pivot = this.partition2(arr, left, right);
+		
 		
 		this.quickSort(arr, left, pivot-1);
 		this.quickSort(arr, pivot+1, right);
@@ -138,4 +140,36 @@ public class Sort2 {
 		return i;
 		
 	}
+	
+	//퀵 정렬 다른 방식.
+	public int partition2(int [] arr, int left, int right) {
+		
+		int pivot = arr[left];
+		int low = left;
+		int high = right;
+		
+		while(low < high) {
+			
+			//반복문의 순서를 바꾸면 정렬이 제대로 되지 않는다.
+			while(arr[high] > pivot && low < high) {
+				high--;
+			}
+			while(arr[low] <= pivot && low < high) {
+				low++;
+			}
+
+			this.swap(arr, low, high);
+						
+		}
+		
+		//반복문 종료 후 pivot의 위치 => low로 가야함.
+		this.swap(arr, left, low);
+		
+
+		
+		return low;
+		
+	}
+	
+	
 }
