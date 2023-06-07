@@ -10,12 +10,13 @@ public class FloydWarshall {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
+		//연결되지 않은 정점에 대해서는 간선을 Integer.MAX_VALUE 로 셋팅.
 		int [][] graph = {
-			{0, 4, 2, 5, 100},
-			{100, 0, 1, 100, 4},
+			{0, 4, 2, 5, Integer.MAX_VALUE},
+			{Integer.MAX_VALUE, 0, 1, Integer.MAX_VALUE, 4},
 			{1, 3, 0, 1, 2},
-			{-2, 100,100, 0, 2},
-			{100, -3, 3, 1, 0}
+			{-2, Integer.MAX_VALUE,Integer.MAX_VALUE, 0, 2},
+			{Integer.MAX_VALUE, -3, 3, 1, 0}
 		};
 		
 		for(int i = 0; i < graph.length; i++) {
@@ -48,7 +49,13 @@ public class FloydWarshall {
 				for(int j = 0; j < graph.length; j++) {
 					if(j == k || j == i) continue;
 					//i 부터 j의 최단경로는 i->k->j를 거쳐가는 경로와 직접 가는 경로 중 최소값.
-					graph[i][j] = Math.min(graph[i][k]+graph[k][j], graph[i][j]);
+					if(graph[i][k] == Integer.MAX_VALUE || graph[k][j] == Integer.MAX_VALUE) {
+						graph[i][j] = graph[i][j];
+					}else if(graph[k][j] == Integer.MAX_VALUE) {
+						graph[i][j] = graph[i][k]+graph[k][j];
+					}else {
+						graph[i][j] = Math.min(graph[i][k]+graph[k][j], graph[i][j]);
+					}
  				}
 			}
 		}
